@@ -1,0 +1,36 @@
+# Agent rules for this repo
+
+## Prime directive
+- Match existing patterns in this codebase. Do not introduce new architecture, new folders, or new libraries unless asked.
+- Prefer reuse over creation: check for existing components, utilities, hooks, helpers, and patterns before adding new ones.
+
+## Workflow
+1) Read relevant code and docs first.
+2) Produce a short plan (bullets) and list the files you will touch.
+3) Wait for approval before making changes.
+4) Execute one step at a time. After each step:
+   - state what changed
+   - why it changed
+   - what to check next
+
+## Safety and permissions
+- Do not run terminal commands unless you ask first and I approve.
+- If you think a command is necessary, propose the exact command and the reason.
+
+## Simplicity
+- Keep it simple. Avoid over-engineering, abstractions, and speculative future-proofing.
+- Prefer small, readable functions. Avoid large functions and scattered comments when better naming will do.
+
+## Logging and continuity
+- Maintain /docs/ai/TASK_LOG.md as a running record:
+  - date
+  - goal
+  - plan
+  - decisions made
+  - files changed
+  - follow-ups / TODOs
+- If context is missing or you are unsure, say so and point to which doc would resolve it.
+
+## Testing
+- Do not add or run tests unless asked.
+- If changes create risk, propose what tests or checks I should run.

@@ -1,0 +1,803 @@
+[
+  {
+    "name": "Dumbbell bench press",
+    "muscle_groups": ["chest", "triceps", "shoulders"],
+    "equipment": ["bench", "dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Flat or incline. Go lighter if wrist is an issue."
+  },
+  {
+    "name": "Dumbbell shoulder press",
+    "muscle_groups": ["shoulders", "triceps"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Seated or standing."
+  },
+  {
+    "name": "Push-ups",
+    "muscle_groups": ["chest", "triceps", "shoulders", "core"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Can do on knees or incline for easier variation."
+  },
+  {
+    "name": "Incline dumbbell press",
+    "muscle_groups": ["chest", "shoulders"],
+    "equipment": ["bench", "dumbbells"],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Set bench to 30-45 degrees."
+  },
+  {
+    "name": "Dumbbell flyes",
+    "muscle_groups": ["chest"],
+    "equipment": ["bench", "dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Keep a slight bend in elbows throughout."
+  },
+  {
+    "name": "Tricep dips (bench)",
+    "muscle_groups": ["triceps", "shoulders"],
+    "equipment": ["bench"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Use a bench or sturdy chair behind you."
+  },
+  {
+    "name": "Overhead tricep extension",
+    "muscle_groups": ["triceps"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Single dumbbell held with both hands."
+  },
+  {
+    "name": "Lateral raises",
+    "muscle_groups": ["shoulders"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Light weight, controlled movement."
+  },
+  {
+    "name": "Front raises",
+    "muscle_groups": ["shoulders"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Alternate arms or both together."
+  },
+  {
+    "name": "Banded pull-ups",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": ["pull-up bar", "resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Use band for assistance. Builds toward unassisted pull-ups."
+  },
+  {
+    "name": "Pull-ups",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": ["pull-up bar"],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Full range of motion, controlled descent."
+  },
+  {
+    "name": "Dumbbell rows",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": ["dumbbells", "bench"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "One arm at a time, supported on bench."
+  },
+  {
+    "name": "Bent-over dumbbell rows",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Hinge at hips, keep back flat."
+  },
+  {
+    "name": "Dumbbell bicep curls",
+    "muscle_groups": ["biceps"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Standing or seated. Alternate or together."
+  },
+  {
+    "name": "Hammer curls",
+    "muscle_groups": ["biceps", "forearms"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Neutral grip is easier on wrists than regular curls."
+  },
+  {
+    "name": "Dead hangs",
+    "muscle_groups": ["back", "forearms", "shoulders"],
+    "equipment": ["pull-up bar"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Grip the bar and hang. Great for decompression and grip strength."
+  },
+  {
+    "name": "Goblet squats",
+    "muscle_groups": ["quads", "glutes", "core"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Hold one dumbbell at chest height."
+  },
+  {
+    "name": "Bodyweight squats",
+    "muscle_groups": ["quads", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Focus on depth and form."
+  },
+  {
+    "name": "Bulgarian split squats",
+    "muscle_groups": ["quads", "glutes", "hamstrings"],
+    "equipment": ["bench"],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Rear foot elevated on bench. Add dumbbells for extra resistance."
+  },
+  {
+    "name": "Lunges",
+    "muscle_groups": ["quads", "glutes", "hamstrings"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Walking or stationary. Add dumbbells for progression."
+  },
+  {
+    "name": "Romanian deadlifts",
+    "muscle_groups": ["hamstrings", "glutes", "lower back"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Hinge at hips, slight knee bend, feel the stretch in hamstrings."
+  },
+  {
+    "name": "Glute bridges",
+    "muscle_groups": ["glutes", "hamstrings"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_friendly"],
+    "notes": "Squeeze at the top. Add dumbbell on hips for progression."
+  },
+  {
+    "name": "Single-leg glute bridges",
+    "muscle_groups": ["glutes", "hamstrings"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["knee_friendly"],
+    "notes": "One leg extended, press through the planted foot."
+  },
+  {
+    "name": "Calf raises",
+    "muscle_groups": ["calves"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "On a step for full range. Hold dumbbells for resistance."
+  },
+  {
+    "name": "Step-ups",
+    "muscle_groups": ["quads", "glutes"],
+    "equipment": ["bench"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Use a bench or sturdy step. Add dumbbells for progression."
+  },
+  {
+    "name": "Plank",
+    "muscle_groups": ["core", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Hold on forearms if wrists are an issue."
+  },
+  {
+    "name": "Forearm plank",
+    "muscle_groups": ["core"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Easier on wrists than a full plank."
+  },
+  {
+    "name": "Side plank",
+    "muscle_groups": ["core", "obliques"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Can do on forearm. Hold each side."
+  },
+  {
+    "name": "Bicycle crunches",
+    "muscle_groups": ["core", "obliques"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Controlled pace, don't rush."
+  },
+  {
+    "name": "Leg raises",
+    "muscle_groups": ["core", "hip flexors"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Lying flat or hanging from pull-up bar."
+  },
+  {
+    "name": "Mountain climbers",
+    "muscle_groups": ["core", "shoulders", "hip flexors"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Also works as cardio at higher speeds."
+  },
+  {
+    "name": "Dead bugs",
+    "muscle_groups": ["core"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Great for core stability. Keep lower back pressed to floor."
+  },
+  {
+    "name": "Bird dogs",
+    "muscle_groups": ["core", "lower back", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_caution", "knee_friendly"],
+    "notes": "Opposite arm and leg extension. Focus on stability."
+  },
+  {
+    "name": "Russian twists",
+    "muscle_groups": ["core", "obliques"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Hold a dumbbell for added resistance."
+  },
+  {
+    "name": "Hollow body hold",
+    "muscle_groups": ["core"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Lie flat, lift shoulders and legs off ground. Hold."
+  },
+  {
+    "name": "Dumbbell farmer's walk",
+    "muscle_groups": ["forearms", "core", "shoulders"],
+    "equipment": ["dumbbells"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": [],
+    "notes": "Walk with heavy dumbbells at sides. Great for grip and posture."
+  },
+  {
+    "name": "Wall sit",
+    "muscle_groups": ["quads", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Back against wall, thighs parallel to ground."
+  },
+  {
+    "name": "Superman hold",
+    "muscle_groups": ["lower back", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Lie face down, lift arms and legs simultaneously."
+  },
+  {
+    "name": "Easy run",
+    "muscle_groups": ["legs", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Conversational pace. Build a base."
+  },
+  {
+    "name": "Interval run",
+    "muscle_groups": ["legs", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Alternate fast and slow intervals (e.g. 1 min fast, 2 min easy)."
+  },
+  {
+    "name": "Tempo run",
+    "muscle_groups": ["legs", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Sustained comfortably hard pace."
+  },
+  {
+    "name": "Hill sprints",
+    "muscle_groups": ["legs", "glutes", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "advanced",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Short bursts uphill, walk back down to recover."
+  },
+  {
+    "name": "Brisk walk",
+    "muscle_groups": ["legs", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly"],
+    "notes": "Fast enough to raise heart rate. Low impact."
+  },
+  {
+    "name": "Cycling (outdoor or stationary)",
+    "muscle_groups": ["quads", "hamstrings", "cardiovascular"],
+    "equipment": ["bike"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly"],
+    "notes": "Low impact. Adjust resistance for intensity."
+  },
+  {
+    "name": "Swimming (freestyle)",
+    "muscle_groups": ["full body", "cardiovascular"],
+    "equipment": ["pool"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly", "wrist_friendly"],
+    "notes": "Great full-body, low-impact cardio."
+  },
+  {
+    "name": "Swimming (backstroke)",
+    "muscle_groups": ["back", "shoulders", "cardiovascular"],
+    "equipment": ["pool"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly", "wrist_friendly"],
+    "notes": "Easier on shoulders than freestyle."
+  },
+  {
+    "name": "Jumping jacks",
+    "muscle_groups": ["full body", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Classic warm-up or HIIT exercise."
+  },
+  {
+    "name": "High knees",
+    "muscle_groups": ["hip flexors", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Stationary running with high knee lifts."
+  },
+  {
+    "name": "Burpees",
+    "muscle_groups": ["full body", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "cardio",
+    "tags": ["wrist_caution", "knee_caution"],
+    "notes": "Full body explosive movement. Skip the push-up if wrists are sore."
+  },
+  {
+    "name": "Skipping rope",
+    "muscle_groups": ["calves", "cardiovascular"],
+    "equipment": ["skipping rope"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution", "wrist_caution"],
+    "notes": "Great for coordination and conditioning."
+  },
+  {
+    "name": "Box step-ups (fast)",
+    "muscle_groups": ["quads", "glutes", "cardiovascular"],
+    "equipment": ["bench"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Step up and down at pace for cardio effect."
+  },
+  {
+    "name": "Rowing machine",
+    "muscle_groups": ["back", "legs", "cardiovascular"],
+    "equipment": ["rowing machine"],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly"],
+    "notes": "Full body, low impact. Focus on leg drive."
+  },
+  {
+    "name": "Star jumps",
+    "muscle_groups": ["full body", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_caution"],
+    "notes": "Explosive jump spreading arms and legs wide."
+  },
+  {
+    "name": "Shadow boxing",
+    "muscle_groups": ["shoulders", "core", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "cardio",
+    "tags": ["knee_friendly"],
+    "notes": "Throw punches at the air. Good for coordination and cardio."
+  },
+  {
+    "name": "Downward dog",
+    "muscle_groups": ["hamstrings", "calves", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_caution"],
+    "notes": "Classic yoga pose. Stretches posterior chain."
+  },
+  {
+    "name": "Child's pose",
+    "muscle_groups": ["back", "shoulders", "hips"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly", "knee_caution"],
+    "notes": "Restorative pose. Great for back relief."
+  },
+  {
+    "name": "Cat-cow stretch",
+    "muscle_groups": ["spine", "core"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_caution"],
+    "notes": "Alternate arching and rounding the back on all fours."
+  },
+  {
+    "name": "Pigeon pose",
+    "muscle_groups": ["hips", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["knee_caution"],
+    "notes": "Deep hip opener. Use a pillow under hip if needed."
+  },
+  {
+    "name": "Seated forward fold",
+    "muscle_groups": ["hamstrings", "lower back"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["knee_friendly", "wrist_friendly"],
+    "notes": "Sit with legs extended, reach toward toes."
+  },
+  {
+    "name": "Standing quad stretch",
+    "muscle_groups": ["quads"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": [],
+    "notes": "Hold foot behind you. Use wall for balance."
+  },
+  {
+    "name": "Hip flexor stretch (kneeling)",
+    "muscle_groups": ["hip flexors", "quads"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["knee_caution"],
+    "notes": "Kneel on one knee, push hips forward."
+  },
+  {
+    "name": "Hamstring stretch (standing)",
+    "muscle_groups": ["hamstrings"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": [],
+    "notes": "Foot on a step, lean forward from hips."
+  },
+  {
+    "name": "Figure-four stretch",
+    "muscle_groups": ["glutes", "hips"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["knee_friendly", "wrist_friendly"],
+    "notes": "Lying on back, cross ankle over opposite knee."
+  },
+  {
+    "name": "Chest opener stretch",
+    "muscle_groups": ["chest", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly"],
+    "notes": "Clasp hands behind back, open chest."
+  },
+  {
+    "name": "Shoulder cross-body stretch",
+    "muscle_groups": ["shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly"],
+    "notes": "Pull arm across body with opposite hand."
+  },
+  {
+    "name": "Neck rolls",
+    "muscle_groups": ["neck"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Slow, gentle circles. Don't force range."
+  },
+  {
+    "name": "Thread the needle",
+    "muscle_groups": ["thoracic spine", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_caution"],
+    "notes": "On all fours, reach one arm under the body."
+  },
+  {
+    "name": "Cobra stretch",
+    "muscle_groups": ["core", "hip flexors", "chest"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_caution"],
+    "notes": "Lie face down, press up gently through hands."
+  },
+  {
+    "name": "Spinal twist (lying)",
+    "muscle_groups": ["spine", "glutes"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Lie on back, drop knees to one side."
+  },
+  {
+    "name": "World's greatest stretch",
+    "muscle_groups": ["hip flexors", "hamstrings", "thoracic spine"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_caution"],
+    "notes": "Lunge, plant hand, rotate and reach up. Full body mobility."
+  },
+  {
+    "name": "Ankle circles",
+    "muscle_groups": ["ankles"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Rotate each ankle in circles. Good warm-up."
+  },
+  {
+    "name": "Wrist circles",
+    "muscle_groups": ["wrists", "forearms"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "flexibility",
+    "tags": [],
+    "notes": "Gentle circles to warm up or cool down wrists."
+  },
+  {
+    "name": "90/90 hip stretch",
+    "muscle_groups": ["hips", "glutes"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "flexibility",
+    "tags": ["knee_caution", "wrist_friendly"],
+    "notes": "Both legs at 90-degree angles on the floor. Deep hip opener."
+  },
+  {
+    "name": "Bodyweight circuit (push-ups, squats, lunges, plank)",
+    "muscle_groups": ["full body"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution", "knee_caution"],
+    "notes": "Cycle through exercises with minimal rest."
+  },
+  {
+    "name": "Tabata intervals",
+    "muscle_groups": ["full body", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "mixed",
+    "tags": [],
+    "notes": "20 seconds work, 10 seconds rest, 8 rounds. Pick any bodyweight exercise."
+  },
+  {
+    "name": "Bear crawls",
+    "muscle_groups": ["shoulders", "core", "quads"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution"],
+    "notes": "Crawl forward on hands and feet, knees hovering."
+  },
+  {
+    "name": "Inchworms",
+    "muscle_groups": ["hamstrings", "core", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution"],
+    "notes": "Walk hands out to plank, walk feet to hands. Repeat."
+  },
+  {
+    "name": "Kettlebell swings",
+    "muscle_groups": ["glutes", "hamstrings", "core"],
+    "equipment": ["kettlebell"],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution"],
+    "notes": "Hip hinge movement. Power comes from hips, not arms."
+  },
+  {
+    "name": "Dumbbell thrusters",
+    "muscle_groups": ["quads", "shoulders", "core"],
+    "equipment": ["dumbbells"],
+    "difficulty": "intermediate",
+    "type": "mixed",
+    "tags": ["wrist_caution", "knee_caution"],
+    "notes": "Squat to overhead press in one fluid motion."
+  },
+  {
+    "name": "Squat jumps",
+    "muscle_groups": ["quads", "glutes", "cardiovascular"],
+    "equipment": [],
+    "difficulty": "intermediate",
+    "type": "mixed",
+    "tags": ["knee_caution"],
+    "notes": "Explosive squat into a jump. Land softly."
+  },
+  {
+    "name": "Walk-outs",
+    "muscle_groups": ["core", "hamstrings", "shoulders"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution"],
+    "notes": "From standing, walk hands out to plank and back."
+  },
+  {
+    "name": "Light stretching and foam rolling",
+    "muscle_groups": ["full body"],
+    "equipment": ["foam roller"],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_friendly", "knee_friendly"],
+    "notes": "Active recovery day. Focus on tight areas."
+  },
+  {
+    "name": "Yoga sun salutations",
+    "muscle_groups": ["full body"],
+    "equipment": [],
+    "difficulty": "beginner",
+    "type": "mixed",
+    "tags": ["wrist_caution"],
+    "notes": "Flow through poses. Good warm-up or standalone practice."
+  },
+  {
+    "name": "Band pull-aparts",
+    "muscle_groups": ["upper back", "shoulders"],
+    "equipment": ["resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Hold band at chest height, pull apart. Great for posture."
+  },
+  {
+    "name": "Banded face pulls",
+    "muscle_groups": ["upper back", "rear delts"],
+    "equipment": ["resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Anchor band at head height, pull toward face."
+  },
+  {
+    "name": "Banded squats",
+    "muscle_groups": ["quads", "glutes"],
+    "equipment": ["resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_caution"],
+    "notes": "Band around thighs adds glute activation."
+  },
+  {
+    "name": "Banded lateral walks",
+    "muscle_groups": ["glutes", "hips"],
+    "equipment": ["resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["knee_friendly"],
+    "notes": "Band around ankles, side-step. Targets glute medius."
+  },
+  {
+    "name": "Banded rows",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": ["resistance bands"],
+    "difficulty": "beginner",
+    "type": "strength",
+    "tags": ["wrist_friendly"],
+    "notes": "Anchor band and pull toward body. Good alternative to dumbbell rows."
+  },
+  {
+    "name": "Dumbbell renegade rows",
+    "muscle_groups": ["back", "core", "triceps"],
+    "equipment": ["dumbbells"],
+    "difficulty": "intermediate",
+    "type": "strength",
+    "tags": ["wrist_caution"],
+    "notes": "Plank position, row one dumbbell at a time."
+  }
+]

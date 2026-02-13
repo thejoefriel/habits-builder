@@ -1,0 +1,13 @@
+// No database in this project.
+// State is stored in a single JSON file: agent/data/state.json
+// See models/schemas.py for the full data model (Pydantic).
+//
+// Top-level structure:
+//   AppState
+//   ├── user: User (profile, phase, calendar config)
+//   ├── goal: Goal (fitness goal, preferences, constraints)
+//   ├── schedule_context: ScheduleContext (sleep, routine blocks, preferred times)
+//   ├── planned_sessions: [PlannedSession] (each linked to a Google Calendar event)
+//   └── conversation_logs: [ConversationLog] (summaries of each conversation)
+//
+// If persistence beyond JSON is added later (e.g. SQLite, Postgres), this file should be updated.
