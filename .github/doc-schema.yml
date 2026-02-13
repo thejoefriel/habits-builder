@@ -1,0 +1,133 @@
+# Documentation Schema
+#
+# Defines the standard documentation structure for this project.
+# Used by doc-audit.py to detect gaps and by scaffold scripts to create missing docs.
+#
+# Every product repo under SLA should have these documents.
+# The schema is the single source of truth for what "complete documentation" means.
+
+project:
+  name: "Habits AI Fitness Planner"
+  type: "web-app"  # web-app | api | library | mobile-app
+
+# Required documents
+# Each document has:
+#   path       - where it lives in the repo
+#   template   - reference template in docs/templates/
+#   required   - must exist for the repo to pass audit
+#   sections   - expected headings (used for completeness scoring)
+#   audience   - who this doc is for (helps prioritise gaps)
+#   notify     - Notion page ID for sync (empty until configured)
+
+documents:
+  - id: readme
+    path: README.md
+    template: docs/templates/README.tmpl.md
+    required: true
+    audience: [developers, stakeholders]
+    description: "Project overview, setup instructions, deployment guide"
+    sections:
+      - "What this is"
+      - "Tech stack"
+      - "Getting started"
+      - "Environment variables"
+      - "Running locally"
+      - "Deployment"
+      - "Project structure"
+    notion_page_id: ""
+
+  - id: technical-design
+    path: docs/technical-design.md
+    template: docs/templates/technical-design.tmpl.md
+    required: true
+    audience: [developers, agents]
+    description: "Architecture, components, data flow, integrations, hard rules"
+    sections:
+      - "System overview"
+      - "Components"
+      - "Data flow"
+      - "External integrations"
+      - "Hard rules"
+    notion_page_id: ""
+
+  - id: user-stories
+    path: docs/user-stories.md
+    template: docs/templates/user-stories.tmpl.md
+    required: true
+    audience: [developers, stakeholders, agents]
+    description: "User personas, stories with acceptance criteria"
+    sections:
+      - "Personas"
+      - "Stories"
+    notion_page_id: ""
+
+  - id: user-journeys
+    path: docs/user-journeys.md
+    template: docs/templates/user-journeys.tmpl.md
+    required: true
+    audience: [developers, stakeholders, agents]
+    description: "End-to-end user flows with steps, preconditions, postconditions"
+    sections:
+      - "Journeys"
+    notion_page_id: ""
+
+  - id: product-playbook
+    path: docs/product-playbook.md
+    template: docs/templates/product-playbook.tmpl.md
+    required: true
+    audience: [developers, stakeholders, agents]
+    description: "Product summary, roles, features, phases, tone, FAQ"
+    sections:
+      - "Product Summary"
+      - "User Roles"
+      - "Features"
+      - "Tone Guidelines"
+      - "What This Product Does NOT Have"
+    notion_page_id: ""
+
+  - id: common-components
+    path: docs/common-components.md
+    template: docs/templates/common-components.tmpl.md
+    required: false
+    audience: [developers, agents]
+    description: "Shared UI components, agent patterns, reuse rules"
+    sections:
+      - "UI library"
+      - "Key components"
+      - "Patterns"
+      - "Reuse rules"
+    notion_page_id: ""
+
+  - id: changelog
+    path: docs/CHANGELOG.md
+    template: docs/templates/changelog.tmpl.md
+    required: true
+    audience: [developers, stakeholders]
+    description: "Running changelog of features, fixes, and changes"
+    sections:
+      - "Unreleased"
+    notion_page_id: ""
+
+  - id: task-log
+    path: docs/TASK_LOG.md
+    template: docs/templates/task-log.tmpl.md
+    required: false
+    audience: [developers, agents]
+    description: "AI task log with goals, plans, decisions, files changed"
+    sections:
+      - "Completed Tasks"
+    notion_page_id: ""
+
+# Feature specs live in docs/features/ and follow the feature template.
+# They are not individually listed here — the audit checks the directory exists
+# and that at least one non-template spec is present for active products.
+feature_specs:
+  directory: docs/features/
+  template: docs/features/_TEMPLATE.md
+  required: true
+
+# Notion sync configuration (Phase 5)
+# notion:
+#   workspace_id: ""
+#   database_id: ""
+#   sync_enabled: false

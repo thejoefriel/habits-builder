@@ -53,7 +53,7 @@ A voice-first AI agent that helps users set fitness goals, build realistic exerc
 - `agent/tools/` — Calendar API, availability engine, planner, state management, SIP calling
 - `agent/prompts/` — Dynamic system prompt builder (main agent + reminder agent)
 - `frontend/` — Next.js web frontend with voice UI
-- `docs/ai/` — AI-readable project documentation
+- `docs/` — Project documentation (technical design, user stories, playbook, etc.)
 
 ## Conventions
 

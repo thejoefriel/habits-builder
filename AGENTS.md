@@ -44,7 +44,7 @@ Before committing, check in: "This would be a good time to commit because [reaso
 
 ## Task Logging
 
-Maintain `/docs/ai/TASK_LOG.md` as a running record for every non-trivial task:
+Maintain `/docs/TASK_LOG.md` as a running record for every non-trivial task:
 
 - Date
 - Goal
@@ -75,6 +75,6 @@ When working in `agent/**/*.py`:
 At the start of each session, before beginning any task:
 
 1. **Verify rules setup is current.** Search the web for the latest best practice on AI agent rules for the tools this project uses (include the current year). If the approach has changed, flag it and recommend migrating.
-2. **Check for stale docs.** If `docs/ai/TASK_LOG.md` or `docs/ai/CHANGELOG_AI.md` exist, skim recent entries to understand where the project left off.
+2. **Check for stale docs.** If `docs/TASK_LOG.md` or `docs/CHANGELOG.md` exist, skim recent entries to understand where the project left off.
 3. **Check for running processes.** Before starting dev servers or long-running commands, check if they're already running.
 4. **Flag drift.** If you notice code patterns that contradict these rules, flag it rather than silently following the drift.

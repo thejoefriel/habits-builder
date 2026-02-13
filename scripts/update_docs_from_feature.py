@@ -17,10 +17,10 @@ from anthropic import Anthropic
 
 # Core docs that should be updated when features are merged
 CORE_DOCS = [
-    "docs/ai/PROJECT_OVERVIEW.md",
-    "docs/ai/ARCHITECTURE.md",
-    "docs/ai/PRODUCT_PLAYBOOK.md",
-    "docs/ai/USER_JOURNEYS.md",
+    "docs/project-overview.md",
+    "docs/technical-design.md",
+    "docs/product-playbook.md",
+    "docs/user-journeys.md",
 ]
 
 SYSTEM_PROMPT = """You are a technical documentation specialist. Your job is to update project documentation when new features are added.
@@ -42,10 +42,10 @@ Guidelines:
 
 Return your response as a JSON object with this structure:
 {
-  "docs/ai/PROJECT_OVERVIEW.md": "full updated content...",
-  "docs/ai/ARCHITECTURE.md": "full updated content...",
-  "docs/ai/PRODUCT_PLAYBOOK.md": "full updated content...",
-  "docs/ai/USER_JOURNEYS.md": "full updated content..."
+  "docs/project-overview.md": "full updated content...",
+  "docs/technical-design.md": "full updated content...",
+  "docs/product-playbook.md": "full updated content...",
+  "docs/user-journeys.md": "full updated content..."
 }
 
 Return ONLY the JSON object, no other text."""
