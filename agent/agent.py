@@ -42,6 +42,7 @@ from tools import calendar as gcal
 from tools.availability import get_availability, check_slot_available
 from tools.planner import generate_plan
 from tools.exercises import get_exercises, format_exercise_list
+from reminder_agent import ReminderAgent
 
 load_dotenv(".env.local")
 
@@ -152,6 +153,7 @@ class HabitsAgent(Agent):
         self,
         name: Optional[str] = None,
         timezone: Optional[str] = None,
+        phone_number: Optional[str] = None,
         conversation_phase: Optional[str] = None,
         write_calendar_id: Optional[str] = None,
         read_calendar_ids: Optional[str] = None,
@@ -161,6 +163,7 @@ class HabitsAgent(Agent):
         Args:
             name: User's name.
             timezone: User's timezone (e.g. 'Europe/London').
+            phone_number: User's phone number in E.164 format (e.g. '+44xxxxxxxxxx') for reminder calls.
             conversation_phase: New phase. One of: onboarding_goal, onboarding_schedule, plan_proposed, plan_confirmed, check_in.
             write_calendar_id: Calendar ID to write events to.
             read_calendar_ids: Comma-separated list of calendar IDs to read from.
@@ -171,6 +174,8 @@ class HabitsAgent(Agent):
             self._state.user.name = name
         if timezone is not None:
             self._state.user.timezone = timezone
+        if phone_number is not None:
+            self._state.user.phone_number = phone_number
         if conversation_phase is not None:
             self._state.user.conversation_phase = ConversationPhase(conversation_phase)
         if write_calendar_id is not None:
@@ -746,9 +751,21 @@ server = AgentServer()
 
 @server.rtc_session()
 async def entrypoint(ctx: agents.JobContext):
-    logger.info("SESSION START — room: %s", ctx.room.name if ctx.room else "unknown")
+    room_name = ctx.room.name if ctx.room else "unknown"
+    logger.info("SESSION START — room: %s", room_name)
     await ctx.connect()
 
+    # ------------------------------------------------------------------
+    # Reminder call rooms (outbound phone calls via SIP)
+    # ------------------------------------------------------------------
+    if room_name.startswith("reminder_"):
+        logger.info("Detected reminder room — launching ReminderAgent")
+        await _handle_reminder_room(ctx)
+        return
+
+    # ------------------------------------------------------------------
+    # Normal web-based agent session
+    # ------------------------------------------------------------------
     session = AgentSession(
         llm=openai.realtime.RealtimeModel(
             voice="alloy",
@@ -791,6 +808,157 @@ async def entrypoint(ctx: agents.JobContext):
         await session.generate_reply(
             instructions="Welcome the user back for a check-in. Before speaking, use the check_for_deleted_events and get_sessions_since_last_conversation tools to understand what's happened since the last conversation. Then summarise and ask how their sessions went."
         )
+
+
+async def _handle_reminder_room(ctx: agents.JobContext):
+    """Handle an outbound reminder phone call room.
+
+    The SIP participant (phone user) is already in the room, placed there
+    by CreateSIPParticipant. We parse their metadata to understand which
+    sessions to remind about, then launch the ReminderAgent.
+    """
+    import asyncio as _asyncio
+
+    metadata = {}
+    room_name = ctx.room.name if ctx.room else "unknown"
+
+    # Strategy 1: Read room metadata (set when room was created)
+    if ctx.room and ctx.room.metadata:
+        logger.debug("Room metadata present: %s", ctx.room.metadata[:200])
+        try:
+            metadata = json.loads(ctx.room.metadata)
+        except json.JSONDecodeError:
+            logger.warning("Failed to parse room metadata")
+
+    # Strategy 2: Check participant metadata
+    if not metadata.get("sessions"):
+        logger.debug(
+            "No sessions in room metadata, checking %d remote participants",
+            len(ctx.room.remote_participants) if ctx.room else 0,
+        )
+        for pid, participant in (ctx.room.remote_participants.items() if ctx.room else {}):
+            logger.debug("Participant %s metadata: %s", pid, participant.metadata[:200] if participant.metadata else "(none)")
+            if participant.metadata:
+                try:
+                    metadata = json.loads(participant.metadata)
+                    if metadata.get("sessions"):
+                        break
+                except json.JSONDecodeError:
+                    continue
+
+    # Strategy 3: Fetch room info from LiveKit API (most reliable)
+    if not metadata.get("sessions"):
+        logger.info("Fetching room metadata from LiveKit API for room: %s", room_name)
+        try:
+            lk_url = os.environ.get("LIVEKIT_URL", "")
+            lk_key = os.environ.get("LIVEKIT_API_KEY", "")
+            lk_secret = os.environ.get("LIVEKIT_API_SECRET", "")
+            if lk_url and lk_key and lk_secret:
+                from livekit import api as lk_api
+                lk = lk_api.LiveKitAPI(lk_url, lk_key, lk_secret)
+
+                # List participants to get their metadata
+                parts_resp = await lk.room.list_participants(
+                    lk_api.ListParticipantsRequest(room=room_name)
+                )
+                for p in parts_resp.participants:
+                    logger.debug("API participant %s metadata: %s", p.identity, p.metadata[:200] if p.metadata else "(none)")
+                    if p.metadata:
+                        try:
+                            candidate = json.loads(p.metadata)
+                            if candidate.get("sessions"):
+                                metadata = candidate
+                                break
+                        except json.JSONDecodeError:
+                            continue
+
+                # Also try room metadata via rooms list
+                if not metadata.get("sessions"):
+                    rooms_resp = await lk.room.list_rooms(lk_api.ListRoomsRequest(names=[room_name]))
+                    for r in rooms_resp.rooms:
+                        logger.debug("API room %s metadata: %s", r.name, r.metadata[:200] if r.metadata else "(none)")
+                        if r.metadata:
+                            try:
+                                candidate = json.loads(r.metadata)
+                                if candidate.get("sessions"):
+                                    metadata = candidate
+                                    break
+                            except json.JSONDecodeError:
+                                continue
+
+                await lk.aclose()
+        except Exception as e:
+            logger.error("Failed to fetch room metadata from API: %s", e)
+
+    user_name = metadata.get("user_name", "there")
+    timezone = metadata.get("timezone", "Europe/London")
+    sessions = metadata.get("sessions", [])
+
+    if not sessions:
+        logger.error("No sessions found in room or participant metadata for reminder room")
+        return
+
+    logger.info(
+        "Reminder room — user: %s, sessions: %d (%s)",
+        user_name,
+        len(sessions),
+        ", ".join(s.get("title", "?") for s in sessions),
+    )
+
+    # Wait for the phone participant to actually join (i.e. user picks up)
+    logger.info("Waiting for phone participant to join room...")
+    try:
+        phone_participant = await ctx.wait_for_participant(
+            identity=f"phone_{metadata.get('user_id', 'user')}",
+        )
+        logger.info("Phone participant joined: %s", phone_participant.identity)
+    except Exception as e:
+        logger.warning("wait_for_participant raised %s: %s — starting anyway", type(e).__name__, e)
+
+    # Use a fast REST-based TTS for the instant greeting,
+    # and the Realtime model for the actual conversation
+    session = AgentSession(
+        llm=openai.realtime.RealtimeModel(
+            voice="alloy",
+            model="gpt-4o-realtime-preview",
+            input_audio_transcription=InputAudioTranscription(
+                model="whisper-1",
+                language="en",
+            ),
+        ),
+        tts=openai.TTS(voice="alloy", model="gpt-4o-mini-tts"),
+    )
+
+    agent = ReminderAgent(
+        sessions=sessions,
+        user_name=user_name,
+        timezone=timezone,
+    )
+
+    await session.start(
+        room=ctx.room,
+        agent=agent,
+        room_options=room_io.RoomOptions(
+            audio_input=room_io.AudioInputOptions(
+                noise_cancellation=noise_cancellation.BVC(),
+            ),
+        ),
+    )
+
+    # Instant greeting via fast TTS — plays immediately while Realtime model warms up
+    session_titles = ", ".join(s.get("title", "workout") for s in sessions)
+    logger.info("Playing instant greeting via TTS...")
+    greeting = await session.say(
+        f"Hi {user_name}! It's Habits calling with a quick reminder about your {session_titles}. One moment.",
+        allow_interruptions=False,
+    )
+    await greeting
+
+    # Hand off to the AI for the real conversation
+    logger.info("Starting AI reminder conversation about: %s", session_titles)
+    await session.generate_reply(
+        instructions=f"You've just been connected to {user_name} on a phone call and a greeting has already been played. Now remind them about their upcoming session: {session_titles}. Ask if they're all set or need to make a change. Keep it brief."
+    )
 
 
 if __name__ == "__main__":

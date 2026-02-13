@@ -46,6 +46,15 @@ class SessionStatus(str, Enum):
     CANCELLED = "cancelled"
 
 
+class ReminderOutcome(str, Enum):
+    CONFIRMED = "confirmed"
+    RESCHEDULED = "rescheduled"
+    SKIPPED = "skipped"
+    NO_ANSWER = "no_answer"
+    VOICEMAIL = "voicemail"
+    ERROR = "error"
+
+
 # --- Sub-models ---
 
 
@@ -75,6 +84,7 @@ class User(BaseModel):
     user_id: str = "joe"
     name: str = ""
     timezone: str = "Europe/London"
+    phone_number: Optional[str] = None
     conversation_phase: ConversationPhase = ConversationPhase.ONBOARDING_GOAL
     last_conversation_date: Optional[datetime] = None
     write_calendar_id: Optional[str] = None
@@ -112,6 +122,8 @@ class PlannedSession(BaseModel):
     scheduled_start: str  # HH:MM
     status: SessionStatus = SessionStatus.UPCOMING
     user_feedback: Optional[str] = None
+    reminder_sent: bool = False
+    reminder_outcome: Optional[ReminderOutcome] = None
 
 
 class ConversationLog(BaseModel):
