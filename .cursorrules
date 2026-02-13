@@ -31,6 +31,18 @@
   - follow-ups / TODOs
 - If context is missing or you are unsure, say so and point to which doc would resolve it.
 
+## Git workflow
+- Never push directly to main. Always create a feature branch and open a PR.
+- Branch naming: use descriptive names like `feature/phone-reminders`, `fix/calendar-overlap`, `docs/update-readme`.
+- When committing, create a new branch first, commit, push, then open a PR using `gh pr create`.
+- Wait for PR approval before merging unless told otherwise.
+- Commit incrementally: identify logical checkpoints during tasks to keep PRs reviewable. Don't wait until the end to commit everything.
+- Before committing, check in with me: "This would be a good time to commit because [reason]. Ready to commit?" Good commit points include:
+  - A single feature or fix is complete and working
+  - A logical unit of work is done (e.g., data model changes before the code that uses them)
+  - Before starting a different type of change (e.g., switching from backend to frontend)
+  - When the current changes are self-contained and testable
+
 ## Testing
 - Do not add or run tests unless asked.
 - If changes create risk, propose what tests or checks I should run.
