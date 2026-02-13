@@ -3,8 +3,6 @@ name: Update Docs on Feature Merge
 on:
   pull_request:
     types: [closed]
-    paths:
-      - 'docs/features/**'
 
 jobs:
   update-docs:
@@ -18,19 +16,46 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get changed feature files
+      - name: Find related feature specs
         id: changed-files
         run: |
-          # Get the list of added or modified feature files from the merged PR
-          FEATURE_FILES=$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.merge_commit_sha }} | grep '^docs/features/.*\.md$' | grep -v '_TEMPLATE.md' | grep -v 'README.md' || true)
+          FEATURE_FILES=""
 
+          # Strategy 1: Feature spec files directly changed in this PR
+          CHANGED=$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.merge_commit_sha }} | grep '^docs/features/.*\.md$' | grep -v '_TEMPLATE.md' | grep -v 'README.md' || true)
+          if [ -n "$CHANGED" ]; then
+            echo "Feature specs changed in PR:"
+            echo "$CHANGED"
+            FEATURE_FILES="$CHANGED"
+          fi
+
+          # Strategy 2: Branch name matches a feature spec
+          # e.g. feature/phone-reminders -> docs/features/phone-reminders.md
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "PR branch: $BRANCH"
+
+          # Extract the slug after feature/ or fix/
+          SLUG=$(echo "$BRANCH" | sed -n 's|^feature/\(.*\)|\1|p')
+          if [ -n "$SLUG" ]; then
+            SPEC_PATH="docs/features/${SLUG}.md"
+            if [ -f "$SPEC_PATH" ]; then
+              # Only add if not already in the list
+              if ! echo "$FEATURE_FILES" | grep -q "$SPEC_PATH"; then
+                echo "Feature spec matched by branch name: $SPEC_PATH"
+                FEATURE_FILES=$(echo -e "${FEATURE_FILES}\n${SPEC_PATH}" | sed '/^$/d')
+              fi
+            else
+              echo "No spec found for branch slug: $SPEC_PATH"
+            fi
+          fi
+
+          # Output result
           if [ -z "$FEATURE_FILES" ]; then
-            echo "No feature files changed"
+            echo "No feature specs found"
             echo "has_features=false" >> $GITHUB_OUTPUT
           else
-            echo "Feature files changed:"
+            echo "Feature specs to process:"
             echo "$FEATURE_FILES"
-            # Convert to space-separated for the script
             FEATURE_FILES_SPACE=$(echo "$FEATURE_FILES" | tr '\n' ' ')
             echo "feature_files=$FEATURE_FILES_SPACE" >> $GITHUB_OUTPUT
             echo "has_features=true" >> $GITHUB_OUTPUT
