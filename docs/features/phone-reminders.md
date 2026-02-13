@@ -8,6 +8,14 @@ This feature depends on the core Habits agent being functional first. Read `habi
 
 ---
 
+## User Stories
+
+- As a user, I want to receive a phone call before my workout so that I'm reminded and can confirm I'm ready
+- As a user, I want to reschedule a session during the reminder call so that I don't have to open the app
+- As a user, I want to skip a session without guilt so that I can adapt to my day without feeling bad
+
+---
+
 ## Architecture
 
 Three new components:
