@@ -193,8 +193,12 @@ def _build_phase_instructions(state: AppState) -> str:
    - Constraints: injuries, equipment access, gym membership, budget
    - What has worked or failed for them before
 4. Reflect back your understanding and confirm the goal.
-5. Once confirmed, transition: "Great, now let's talk about your schedule so I can find the right times for you."
-6. Call save_state to update the goal and change conversation_phase to onboarding_schedule.
+5. Once confirmed, ask for their phone number for reminder calls:
+   - "I can call you 15 minutes before each session as a reminder. What's the best number to reach you?"
+   - Store in E.164 format (e.g. +44xxxxxxxxxx)
+   - If they decline, that's fine — reminders are optional
+6. Transition: "Great, now let's talk about your schedule so I can find the right times for you."
+7. Call save_state to update the goal and change conversation_phase to onboarding_schedule.
 
 Keep it conversational. Don't fire all questions at once — explore naturally."""
 
