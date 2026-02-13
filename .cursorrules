@@ -31,6 +31,12 @@
   - follow-ups / TODOs
 - If context is missing or you are unsure, say so and point to which doc would resolve it.
 
+## Git workflow
+- Never push directly to main. Always create a feature branch and open a PR.
+- Branch naming: use descriptive names like `feature/phone-reminders`, `fix/calendar-overlap`, `docs/update-readme`.
+- When committing, create a new branch first, commit, push, then open a PR using `gh pr create`.
+- Wait for PR approval before merging unless told otherwise.
+
 ## Testing
 - Do not add or run tests unless asked.
 - If changes create risk, propose what tests or checks I should run.
