@@ -83,7 +83,7 @@ jobs:
         if: steps.changed-files.outputs.has_features == 'true'
         id: check-changes
         run: |
-          if git diff --quiet docs/ai/; then
+          if git diff --quiet docs/; then
             echo "No documentation changes generated"
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
@@ -110,10 +110,10 @@ jobs:
 
             ## Updated documents
 
-            - `docs/ai/PROJECT_OVERVIEW.md`
-            - `docs/ai/ARCHITECTURE.md`
-            - `docs/ai/PRODUCT_PLAYBOOK.md`
-            - `docs/ai/USER_JOURNEYS.md`
+            - `docs/project-overview.md`
+            - `docs/technical-design.md`
+            - `docs/product-playbook.md`
+            - `docs/user-journeys.md`
 
             ## Review checklist
 

@@ -1,4 +1,4 @@
-# Agent Rules — Habits Builder
+# Agent Rules — {project_name}
 
 Rules for AI coding agents working in this repository. This is the single source of truth — tool-specific config (`.cursor/rules/`, `CLAUDE.md`) should point here, not duplicate content.
 
@@ -27,7 +27,7 @@ Rules for AI coding agents working in this repository. This is the single source
 ## Git Workflow
 
 - Never push directly to main. Always create a feature branch and open a PR.
-- Branch naming: `feature/phone-reminders`, `fix/calendar-overlap`, `docs/update-readme`.
+- Branch naming: `feature/feature-name`, `fix/bug-name`, `docs/doc-name`.
 - When committing: create a new branch first, commit, push, then open a PR using `gh pr create`.
 - Wait for PR approval before merging unless told otherwise.
 
@@ -54,16 +54,6 @@ Maintain `/docs/TASK_LOG.md` as a running record for every non-trivial task:
 - Follow-ups / TODOs
 
 If context is missing or you are unsure about something, say so and point to which doc would resolve it.
-
-## Python Agent Conventions
-
-When working in `agent/**/*.py`:
-
-- Use existing patterns from `agent.py` for new tools: `@function_tool`, `@_log_tool`, docstrings with `Args:`.
-- All tool calls must be logged via the `_log_tool` decorator.
-- State changes go through `load_state()` / `save_state()` — never write JSON directly.
-- Calendar operations go through `tools/calendar.py` — never call the Google API directly.
-- Keep imports at the top of the file, grouped: stdlib, third-party, local.
 
 ## Testing
 
