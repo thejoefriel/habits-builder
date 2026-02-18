@@ -1,0 +1,178 @@
+name: Documentation Audit
+
+on:
+  # Weekly check — Monday 9am UTC
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      create_issue:
+        description: 'Create a GitHub issue if gaps are found'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+  # Also run when docs or schema change
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'docs/**'
+      - '.github/doc-schema.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run documentation audit
+        id: audit
+        run: |
+          python scripts/doc_audit.py --repo-root . | tee audit-report.txt
+
+          # Also get JSON for processing
+          python scripts/doc_audit.py --repo-root . --json > audit-report.json
+
+          # Check pass/fail
+          if python scripts/doc_audit.py --repo-root . --exit-code 2>/dev/null; then
+            echo "status=pass" >> $GITHUB_OUTPUT
+          else
+            echo "status=fail" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('audit-report.txt', 'utf8');
+            const status = '${{ steps.audit.outputs.status }}';
+            const icon = status === 'pass' ? ':white_check_mark:' : ':warning:';
+
+            const body = `## ${icon} Documentation Audit
+
+            \`\`\`
+            ${report}
+            \`\`\`
+
+            ${status === 'fail' ? '**Required documentation is missing.** Please add the missing docs before merging.' : 'All required documentation is present.'}
+            `;
+
+            // Find existing audit comment to update
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Documentation Audit')
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Create issue for gaps
+        if: |
+          steps.audit.outputs.status == 'fail' &&
+          (github.event_name == 'schedule' ||
+           (github.event_name == 'workflow_dispatch' && github.event.inputs.create_issue == 'true'))
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('audit-report.json', 'utf8'));
+            const textReport = fs.readFileSync('audit-report.txt', 'utf8');
+
+            const missingDocs = report.documents
+              .filter(d => d.required && !d.exists)
+              .map(d => `- [ ] \`${d.path}\` — ${d.description}`)
+              .join('\n');
+
+            const missingAgent = report.agent_config
+              .filter(a => a.required && !a.exists)
+              .map(a => `- [ ] \`${a.path}\` — ${a.description}`)
+              .join('\n');
+
+            const incompleteDocs = report.documents
+              .filter(d => d.exists && d.sections.score < 1.0)
+              .map(d => {
+                const missing = d.sections.missing.map(s => `\`${s}\``).join(', ');
+                return `- [ ] \`${d.path}\` (${Math.round(d.sections.score * 100)}%) — missing: ${missing}`;
+              })
+              .join('\n');
+
+            let body = `## Documentation Audit Report\n\n`;
+            body += `**Project:** ${report.project.name}\n`;
+            body += `**Score:** ${report.summary.existing}/${report.summary.total_documents} docs, `;
+            body += `${Math.round(report.summary.average_section_score * 100)}% section coverage\n\n`;
+
+            if (missingDocs) {
+              body += `### Missing Required Documents\n\n${missingDocs}\n\n`;
+            }
+            if (missingAgent) {
+              body += `### Missing Agent Config\n\n${missingAgent}\n\n`;
+            }
+            if (incompleteDocs) {
+              body += `### Incomplete Documents\n\n${incompleteDocs}\n\n`;
+            }
+
+            body += `<details><summary>Full audit report</summary>\n\n\`\`\`\n${textReport}\n\`\`\`\n</details>\n\n`;
+            body += `---\n*Generated by the documentation audit workflow*`;
+
+            // Check for existing open audit issue
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'doc-audit',
+            });
+
+            if (issues.length > 0) {
+              // Update existing issue
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issues[0].number,
+                body,
+              });
+              console.log(`Updated existing issue #${issues[0].number}`);
+            } else {
+              // Create new issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: 'Documentation gaps detected',
+                body,
+                labels: ['documentation', 'doc-audit'],
+              });
+              console.log('Created new audit issue');
+            }
