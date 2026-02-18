@@ -118,6 +118,29 @@ documents:
       - "Completed Tasks"
     notion_page_id: ""
 
+# AI agent infrastructure
+# These files ensure AI coding agents (Cursor, Claude Code, etc.) follow
+# consistent rules. Scaffolded with sensible defaults, customisable per project.
+
+agent_config:
+  - id: agents-md
+    path: AGENTS.md
+    template: docs/templates/AGENTS.tmpl.md
+    required: true
+    description: "Universal AI agent rules — single source of truth for all coding agents"
+
+  - id: cursor-rules
+    path: .cursor/rules/load-agents-md.mdc
+    template: docs/templates/cursor-rules.tmpl.mdc
+    required: true
+    description: "Cursor IDE pointer to AGENTS.md"
+
+  - id: claude-md
+    path: CLAUDE.md
+    template: docs/templates/CLAUDE.tmpl.md
+    required: true
+    description: "Claude Code pointer to AGENTS.md"
+
 # Feature specs live in docs/features/ and follow the feature template.
 # They are not individually listed here — the audit checks the directory exists
 # and that at least one non-template spec is present for active products.
