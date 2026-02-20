@@ -50,25 +50,16 @@ documents:
       - "Hard rules"
     notion_page_id: ""
 
-  - id: user-stories
-    path: docs/user-stories.md
-    template: docs/templates/user-stories.tmpl.md
+  - id: user-flows
+    path: docs/user-flows.md
+    template: docs/templates/user-flows.tmpl.md
     required: true
     audience: [developers, stakeholders, agents]
-    description: "User personas, stories with acceptance criteria"
+    description: "User personas, stories with acceptance criteria, and end-to-end journeys"
     sections:
       - "Personas"
-      - "Stories"
-    notion_page_id: ""
-
-  - id: user-journeys
-    path: docs/user-journeys.md
-    template: docs/templates/user-journeys.tmpl.md
-    required: true
-    audience: [developers, stakeholders, agents]
-    description: "End-to-end user flows with steps, preconditions, postconditions"
-    sections:
-      - "Journeys"
+      - "User Stories"
+      - "User Journeys"
     notion_page_id: ""
 
   - id: product-playbook
@@ -108,12 +99,12 @@ documents:
       - "Unreleased"
     notion_page_id: ""
 
-  - id: task-log
-    path: docs/TASK_LOG.md
-    template: docs/templates/task-log.tmpl.md
+  - id: ai-log
+    path: docs/AI_LOG.md
+    template: docs/templates/ai-log.tmpl.md
     required: false
     audience: [developers, agents]
-    description: "AI task log with goals, plans, decisions, files changed"
+    description: "AI development log with goals, plans, decisions, files changed"
     sections:
       - "Completed Tasks"
     notion_page_id: ""
