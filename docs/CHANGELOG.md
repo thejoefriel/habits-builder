@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Migrate state from JSON file to PostgreSQL JSONB storage
+- Add psycopg2-binary dependency and DATABASE_URL environment variable
+- Include one-time migration script (scripts/migrate_json_to_pg.py) for existing state.json data
+- Update documentation to reflect PostgreSQL requirement and setup instructions
 - Simplified documentation structure: consolidated 9 docs → 7 docs by merging user-stories + user-journeys → user-flows.md and project-overview into README.md
 - Updated documentation workflow to trigger on every PR merge (not just feature-spec changes) with infinite loop guards
 - Rewrote doc update script to accept PR diffs as primary context with feature specs as optional input

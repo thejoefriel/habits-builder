@@ -24,14 +24,39 @@
 
 ### Tool functions
 - Defined as `@function_tool` methods on the `HabitsAgent` class
-- Always reload state from disk before operating (`self._state = load_state()`)
-- Always persist state after changes (`persist_state(self._state)`)
+- Always reload state from database before operating (`self._state = load_state()`)
+- Always persist state after changes (`save_state(self._state)`)
 - Calendar tools check availability before creating/moving events
 
 ### State management
-- Single JSON file: `agent/data/state.json`
+- PostgreSQL database with JSONB column: `app_state.data`
 - Read with `load_state()`, write with `save_state()`
 - Pydantic models for validation (`models/schemas.py`)
+- Auto-initialization: table created on first access
+- Module-level connection pooling
+
+## Database patterns
+
+### Connection management
+- Module-level `_conn` variable in `tools/state.py`
+- Lazy initialization on first access
+- Auto-reconnect if connection is closed
+- `autocommit=True` for immediate persistence
+
+### State schema
+```sql
+CREATE TABLE IF NOT EXISTS app_state (
+    id INTEGER PRIMARY KEY DEFAULT 1,
+    data JSONB NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW()
+)
+```
+
+### Migration
+- One-time migration script: `scripts/migrate_json_to_pg.py`
+- Handles empty/missing JSON files gracefully
+- Upserts to id=1 row (overwrites existing data)
+- No retry logic — run once manually
 
 ## Documentation workflow
 
@@ -53,3 +78,4 @@
 - Prefer extending existing components over adding near-duplicates
 - Use shadcn/ui patterns for any new UI elements
 - Keep tool functions focused — one operation per tool
+- Use consistent PostgreSQL JSONB patterns for any new state storage

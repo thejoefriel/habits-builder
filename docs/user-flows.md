@@ -137,7 +137,7 @@
 **Actor:** User (first time)
 
 **Preconditions:**
-- Agent is running with valid LiveKit, OpenAI, Google Calendar, and Twilio credentials
+- Agent is running with valid LiveKit, OpenAI, Google Calendar, Twilio credentials, and PostgreSQL
 - User has a Google account with calendar access
 - State is fresh (phase: `onboarding_goal`)
 
