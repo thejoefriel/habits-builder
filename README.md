@@ -21,7 +21,7 @@ A voice-first AI agent that helps users build exercise habits. You speak to it, 
 | AI model | GPT-4o Realtime (voice + reasoning) |
 | Calendar | Google Calendar API (OAuth2) |
 | Phone calls | Twilio SIP trunk + LiveKit SIP integration |
-| State | JSON file (no database) |
+| State | PostgreSQL (JSONB) |
 
 ### External integrations
 
@@ -39,6 +39,7 @@ A voice-first AI agent that helps users build exercise habits. You speak to it, 
 - A [LiveKit Cloud](https://cloud.livekit.io/) account
 - An [OpenAI](https://platform.openai.com/) API key
 - A Google Cloud project with Calendar API enabled
+- PostgreSQL 14+ (or [Docker](https://www.docker.com/) to run it locally)
 - (Optional) A Twilio account with SIP trunking for phone reminders
 
 ### Environment variables
@@ -53,6 +54,7 @@ OPENAI_API_KEY=<your_openai_api_key>
 GOOGLE_CLIENT_ID=<your_google_client_id>
 GOOGLE_CLIENT_SECRET=<your_google_client_secret>
 GOOGLE_REFRESH_TOKEN=<your_google_refresh_token>
+DATABASE_URL=postgresql://habits:habits@localhost:5432/habits
 LIVEKIT_SIP_TRUNK_ID=<your_sip_trunk_id>
 ```
 
@@ -69,6 +71,11 @@ Copy the `.env.example` files in each directory and fill in your credentials.
 ### Running locally
 
 ```bash
+# Start PostgreSQL (if using Docker)
+docker run -d --name habits-pg \
+  -e POSTGRES_USER=habits -e POSTGRES_PASSWORD=habits -e POSTGRES_DB=habits \
+  -p 5432:5432 postgres:16
+
 # Install dependencies
 cd agent && uv sync
 cd frontend && pnpm install
@@ -95,7 +102,7 @@ agent/                  Python backend
 ├── models/             Pydantic data models
 ├── tools/              Calendar, availability, planner, state, SIP
 ├── prompts/            Dynamic system prompt builders
-├── data/               State file, exercise dataset, logs
+├── data/               Exercise dataset, logs
 │   └── exercises.json  90 exercises for workout plan generation
 frontend/               Next.js web frontend
 ├── components/         Voice UI, chat transcript, session view
@@ -129,7 +136,6 @@ scripts/                Automation scripts
 
 - Building incrementally — each feature is added and understood before moving to the next
 - This is a learning project — code should be clear and well-commented where the logic isn't obvious
-- State is a single JSON file — no database
 - Single-user MVP — no auth, no multi-tenancy
 
 ## License
