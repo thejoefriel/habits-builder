@@ -23,6 +23,13 @@ A voice-first AI agent that helps users build exercise habits. You speak to it, 
 | Phone calls | Twilio SIP trunk + LiveKit SIP integration |
 | State | JSON file (no database) |
 
+### External integrations
+
+- **LiveKit** — real-time voice communication between user and agent, SIP calling
+- **OpenAI Realtime API** — powers the voice agent's conversational ability
+- **Google Calendar API** — reads availability from multiple calendars, writes sessions to one
+- **Twilio** — phone service for outbound reminder calls
+
 ## Getting started
 
 ### Prerequisites
@@ -95,15 +102,14 @@ frontend/               Next.js web frontend
 ├── app/                Next.js app router
 docs/                   Project documentation
 ├── technical-design.md Architecture and data flow
-├── user-stories.md     User personas and stories
-├── user-journeys.md    End-to-end user flows
+├── user-flows.md       Personas, user stories, and journeys
 ├── product-playbook.md Product description for agents and stakeholders
 ├── common-components.md Shared patterns and conventions
 ├── features/           Individual feature specs
 ├── CHANGELOG.md        What changed and when
-├── TASK_LOG.md         AI task log with decisions
+├── AI_LOG.md           AI development log with decisions
 scripts/                Automation scripts
-├── update_docs_from_feature.py  AI-powered doc updater
+├── update_docs.py      AI-powered doc updater
 .github/
 ├── doc-schema.yml      Standard documentation schema
 ├── workflows/          GitHub Actions
@@ -114,11 +120,17 @@ scripts/                Automation scripts
 | Document | What it covers |
 |---|---|
 | [Technical Design](docs/technical-design.md) | Architecture, components, data flow, integrations |
-| [User Stories](docs/user-stories.md) | Personas and user stories with acceptance criteria |
-| [User Journeys](docs/user-journeys.md) | End-to-end flows (onboarding, reminders, check-ins) |
+| [User Flows](docs/user-flows.md) | Personas, user stories, and end-to-end journeys |
 | [Product Playbook](docs/product-playbook.md) | Features, roles, tone, FAQ |
-| [Project Overview](docs/project-overview.md) | High-level summary and conventions |
+| [Common Components](docs/common-components.md) | Shared patterns and conventions |
 | [Feature Specs](docs/features/) | Individual feature designs |
+
+## Conventions
+
+- Building incrementally — each feature is added and understood before moving to the next
+- This is a learning project — code should be clear and well-commented where the logic isn't obvious
+- State is a single JSON file — no database
+- Single-user MVP — no auth, no multi-tenancy
 
 ## License
 

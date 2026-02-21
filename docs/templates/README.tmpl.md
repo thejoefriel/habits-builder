@@ -43,9 +43,9 @@
 | Document | What it covers |
 |---|---|
 | [Technical Design](docs/technical-design.md) | Architecture, components, data flow |
-| [User Stories](docs/user-stories.md) | Personas and user stories |
-| [User Journeys](docs/user-journeys.md) | End-to-end user flows |
+| [User Flows](docs/user-flows.md) | Personas, user stories, and end-to-end journeys |
 | [Product Playbook](docs/product-playbook.md) | Features, roles, tone |
+| [Common Components](docs/common-components.md) | Shared patterns and conventions |
 | [Feature Specs](docs/features/) | Individual feature designs |
 
 ## License

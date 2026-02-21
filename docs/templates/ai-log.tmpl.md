@@ -1,9 +1,11 @@
-# Task Log
+# AI Log
 
 <!-- Running record of development tasks, decisions, and follow-ups. -->
 <!-- Maintained by AI agents and developers during builds. -->
 
-## {Task title} — {Date}
+## Completed Tasks
+
+### {Task title} — {Date}
 
 - **Goal:** {What we set out to do}
 - **Plan:** {The approach we took}
