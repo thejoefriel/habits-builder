@@ -116,6 +116,7 @@ docs/                   Project documentation
 ├── CHANGELOG.md        What changed and when
 ├── AI_LOG.md           AI development log with decisions
 scripts/                Automation scripts
+├── migrate_json_to_pg.py One-time migration from JSON to PostgreSQL
 ├── update_docs.py      AI-powered doc updater
 .github/
 ├── doc-schema.yml      Standard documentation schema

@@ -22,9 +22,9 @@
 └─────────────────┘                     └─────────┬────────────┘
                                                   │
                                           ┌───────▼─────┐
-                                          │  JSON       │
-                                          │  State      │
-                                          │  File       │
+                                          │ PostgreSQL  │
+                                          │ (JSONB)     │
+                                          │             │
                                           └─────────────┘
 ```
 
@@ -39,7 +39,7 @@
 - **reminder_scheduler.py** — Background process that checks for upcoming sessions every 5 minutes and triggers phone call reminders
 - **reminder_agent.py** — Lightweight voice agent for phone call reminders with limited tools
 - **models/schemas.py** — Pydantic models for all state: User, Goal, ScheduleContext, PlannedSession, ConversationLog, AppState
-- **tools/state.py** — JSON file read/write for persistent state
+- **tools/state.py** — PostgreSQL JSONB read/write for persistent state
 - **tools/calendar.py** — Google Calendar API wrapper (list, create, update, delete events; Habits tagging)
 - **tools/availability.py** — Availability engine: merges calendar events + routine blocks + sleep window → free slots
 - **tools/planner.py** — Session planner: generates 4-week plans based on goal, preferences, and availability
@@ -65,7 +65,7 @@
 1. User opens frontend → connects to LiveKit room
 2. Agent joins room → greets user, starts goal gathering
 3. Conversational exchange via voice (OpenAI Realtime handles STT + LLM + TTS)
-4. Agent saves goal via `save_goal` tool → persisted to state.json
+4. Agent saves goal via `save_goal` tool → persisted to PostgreSQL
 5. Agent asks for phone number for reminders
 6. Agent transitions to schedule phase → gathers routine, sleep, preferences
 7. Agent saves schedule via `save_schedule_context` tool
@@ -115,6 +115,26 @@ This allows reliable filtering of agent-created events vs the user's other calen
 - **User in main session**: Skip call entirely to avoid interruption
 - **Calendar event deleted**: Skip call, update session status
 - **Call failure**: Log error, mark as `error`, do not retry
+
+## Database
+
+### PostgreSQL JSONB State Storage
+
+- Single table: `app_state` with id=1 row containing JSONB data
+- Auto-initialization: table created on first state access
+- Module-level connection pooling for efficiency
+- Pydantic model validation on read/write
+- One-time migration script (`scripts/migrate_json_to_pg.py`) for JSON file → PostgreSQL
+
+### State Schema
+
+```sql
+CREATE TABLE app_state (
+    id INTEGER PRIMARY KEY DEFAULT 1,
+    data JSONB NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+```
 
 ## Hard rules
 

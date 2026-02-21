@@ -89,7 +89,7 @@ The agent learns:
 ## Conversation Phases
 
 | Phase | What happens |
-|-------|--------------|
+|-------|---------------|
 | `onboarding_goal` | First conversation — gather fitness goal, preferences, and phone number |
 | `onboarding_schedule` | Gather daily routine, calendar preferences, exercise times |
 | `plan_proposed` | Sessions booked — waiting for user review |
@@ -134,7 +134,6 @@ The agent learns:
 ## What This Product Does NOT Have
 
 - No user accounts or login system (single-user MVP)
-- No database (state is a JSON file)
 - No web dashboard for viewing the plan (calendar IS the visual layer)
 - No email notifications (phone calls are the notification system)
 - No file upload or image sharing
