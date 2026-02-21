@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- Simplified documentation structure: consolidated 9 docs → 7 docs by merging user-stories + user-journeys → user-flows.md and project-overview into README.md
+- Updated documentation workflow to trigger on every PR merge (not just feature-spec changes) with infinite loop guards
+- Rewrote doc update script to accept PR diffs as primary context with feature specs as optional input
+- Renamed TASK_LOG.md to AI_LOG.md and made it optional
+- Strengthened AGENTS.md with commit → PR → stop pattern and expanded self-check procedures
 - Project scaffolded with full agent implementation
 - Data models defined (Pydantic): User, Goal, ScheduleContext, PlannedSession, ConversationLog, AppState
 - State management: JSON file read/write

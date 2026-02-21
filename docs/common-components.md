@@ -33,6 +33,20 @@
 - Read with `load_state()`, write with `save_state()`
 - Pydantic models for validation (`models/schemas.py`)
 
+## Documentation workflow
+
+### Automated doc updates
+- GitHub workflow triggers on every PR merge to main
+- Generates updates to core documentation based on PR diff
+- Creates auto-generated PRs with documentation changes
+- Prevents infinite loops by excluding bot PRs and `docs/auto-update-*` branches
+
+### Doc structure
+- 7 core documentation files maintained automatically
+- Consolidated user-flows.md contains personas, stories, and journeys
+- AI_LOG.md for optional development logging
+- Templates in `docs/templates/` define the structure
+
 ## Reuse rules
 
 - Before creating a new component, search for existing equivalents
