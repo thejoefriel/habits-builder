@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habits-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habits-frontend
+  template:
+    metadata:
+      labels:
+        app: habits-frontend
+    spec:
+      containers:
+        - name: habits-frontend
+          image: thejoefriel/habits-frontend:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: habits-secrets
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi

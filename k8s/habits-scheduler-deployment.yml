@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habits-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habits-scheduler
+  template:
+    metadata:
+      labels:
+        app: habits-scheduler
+    spec:
+      containers:
+        - name: habits-scheduler
+          image: thejoefriel/habits-agent:latest
+          command: ["uv", "run", "python", "reminder_scheduler.py"]
+          envFrom:
+            - secretRef:
+                name: habits-secrets
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi

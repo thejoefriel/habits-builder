@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: habits-postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habits-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habits-postgres
+  template:
+    metadata:
+      labels:
+        app: habits-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: habits
+            - name: POSTGRES_DB
+              value: habits
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: habits-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: habits-postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: habits-postgres
+spec:
+  type: ClusterIP
+  selector:
+    app: habits-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

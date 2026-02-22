@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habits-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habits-agent
+  template:
+    metadata:
+      labels:
+        app: habits-agent
+    spec:
+      containers:
+        - name: habits-agent
+          image: thejoefriel/habits-agent:latest
+          envFrom:
+            - secretRef:
+                name: habits-secrets
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
