@@ -749,7 +749,7 @@ class HabitsAgent(Agent):
 server = AgentServer()
 
 
-@server.rtc_session()
+@server.rtc_session(agent_name="habits-agent")
 async def entrypoint(ctx: agents.JobContext):
     room_name = ctx.room.name if ctx.room else "unknown"
     logger.info("SESSION START — room: %s", room_name)
