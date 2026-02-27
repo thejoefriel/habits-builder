@@ -12,6 +12,7 @@
     "shadcn:install": "pnpm dlx shadcn@latest add @agents-ui/agent-audio-visualizer-bar @agents-ui/agent-audio-visualizer-grid @agents-ui/agent-audio-visualizer-radial @agents-ui/agent-control-bar @agents-ui/agent-session-provider @agents-ui/agent-track-control @agents-ui/agent-track-toggle @agents-ui/agent-chat-transcript @agents-ui/agent-chat-indicator @agents-ui/start-audio-button"
   },
   "dependencies": {
+    "@auth/pg-adapter": "^1.11.1",
     "@livekit/components-react": "^2.9.18",
     "@livekit/protocol": "^1.40.0",
     "@phosphor-icons/react": "^2.1.8",
@@ -45,7 +46,9 @@
     "motion": "^12.16.0",
     "nanoid": "^5.1.6",
     "next": "15.5.9",
+    "next-auth": "5.0.0-beta.30",
     "next-themes": "^0.4.6",
+    "pg": "^8.19.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "shiki": "^3.21.0",
@@ -60,6 +63,7 @@
     "@tailwindcss/postcss": "^4",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.0.0",
+    "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

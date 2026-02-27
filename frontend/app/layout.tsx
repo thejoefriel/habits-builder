@@ -1,6 +1,7 @@
 import { Public_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
+import { SessionProvider } from '@/components/app/session-provider';
 import { ThemeProvider } from '@/components/app/theme-provider';
 import { ThemeToggle } from '@/components/app/theme-toggle';
 import { cn } from '@/lib/shadcn/utils';
@@ -65,26 +66,28 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <meta name="description" content={pageDescription} />
       </head>
       <body className="overflow-x-hidden">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <header className="fixed top-0 left-0 z-50 hidden w-full flex-row justify-between p-6 md:flex">
-            <span className="text-foreground font-mono text-sm font-bold tracking-wider uppercase">
-              {companyName}
-            </span>
-            <span className="text-muted-foreground font-mono text-xs tracking-wider">
-              AI Fitness Planner
-            </span>
-          </header>
+        <SessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header className="fixed top-0 left-0 z-50 hidden w-full flex-row justify-between p-6 md:flex">
+              <span className="text-foreground font-mono text-sm font-bold tracking-wider uppercase">
+                {companyName}
+              </span>
+              <span className="text-muted-foreground font-mono text-xs tracking-wider">
+                AI Fitness Planner
+              </span>
+            </header>
 
-          {children}
-          <div className="group fixed bottom-0 left-1/2 z-50 mb-2 -translate-x-1/2">
-            <ThemeToggle className="translate-y-20 transition-transform delay-150 duration-300 group-hover:translate-y-0" />
-          </div>
-        </ThemeProvider>
+            {children}
+            <div className="group fixed bottom-0 left-1/2 z-50 mb-2 -translate-x-1/2">
+              <ThemeToggle className="translate-y-20 transition-transform delay-150 duration-300 group-hover:translate-y-0" />
+            </div>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );
